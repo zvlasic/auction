@@ -9,7 +9,8 @@ import Config
 
 config :auction,
   ecto_repos: [Auction.Repo],
-  generators: [binary_id: true]
+  generators: [binary_id: true],
+  migration_timestamps: [type: :utc_datetime_usec]
 
 # Configures the endpoint
 config :auction, AuctionWeb.Endpoint,
