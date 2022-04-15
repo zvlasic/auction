@@ -1,9 +1,6 @@
 defmodule Auction do
-  @moduledoc """
-  Auction keeps the contexts that define your domain
-  and business logic.
+  alias Auction.Repo
+  alias Auction.Schemas.Item
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  def items, do: Repo.all(Item)
 end
