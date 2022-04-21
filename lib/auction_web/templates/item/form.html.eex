@@ -1,0 +1,24 @@
+<%= form_for @item, @action, fn form -> %>
+  <%= if @item.action do %>
+    <div class="alert alert-danger">
+      Unfortunately, there are errors in your
+      submission. Please correct them below.
+    </div>
+  <% end %>
+
+  <%= label(form, :title) %>
+  <%= text_input(form, :title) %>
+  <%= error_tag(form, :title) %>
+
+  <%= label(form, :description) %>
+  <%= textarea(form, :description) %>
+  <%= error_tag(form, :description) %>
+
+  <%= label(form, :ends_at, "Auction ends at") %>
+  <%= datetime_select(form, :ends_at) %>
+  <%= error_tag(form, :ends_at) %>
+
+  <div>
+    <%= submit("Submit") %>
+  </div>
+<% end %>

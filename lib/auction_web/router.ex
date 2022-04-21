@@ -18,6 +18,6 @@ defmodule AuctionWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/items", ItemController, only: [:index, :show, :new, :create]
+    resources "/items", ItemController, only: [:index, :show, :new, :create, :edit, :update]
   end
 end
