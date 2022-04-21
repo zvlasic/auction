@@ -1,0 +1,15 @@
+<h1>New Item</h1>
+<%= form_for @item, Routes.item_path(@conn, :create), fn form -> %>
+  <%= label(form, :title) %>
+  <%= text_input(form, :title) %>
+
+  <%= label(form, :description) %>
+  <%= textarea(form, :description) %>
+
+  <%= label(form, :ends_at, "Auction ends at") %>
+  <%= datetime_select(form, :ends_at) %>
+
+  <div>
+    <%= submit("Submit") %>
+  </div>
+<% end %>
