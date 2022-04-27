@@ -1,5 +1,5 @@
 defmodule Auction do
-  alias Auction.Repo
+  alias Auction.{Password, Repo}
   alias Auction.Schemas.{Item, User}
 
   # ITEMS
@@ -16,4 +16,13 @@ defmodule Auction do
   def get_user(id), do: Repo.get!(User, id)
   def new_user, do: User.changeset_with_password(%User{})
   def insert_user(params), do: %User{} |> User.changeset_with_password(params) |> Repo.insert()
+
+  def fetch_user_by_username_and_password(username, password) do
+    with user when not is_nil(user) <- Repo.get_by(User, username: username),
+         true <- Password.verify_with_hash(password, user.hashed_password) do
+      {:ok, user}
+    else
+      _ -> Password.dummy_verify()
+    end
+  end
 end
