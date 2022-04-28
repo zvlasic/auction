@@ -11,7 +11,7 @@ defmodule AuctionWeb.SessionController do
         |> put_flash(:info, "Successfully logged in")
         |> redirect(to: Routes.user_path(conn, :show, user))
 
-      _ ->
+      {:error, _} ->
         conn
         |> put_flash(:error, "That username and password combination cannot be found")
         |> render("new.html")

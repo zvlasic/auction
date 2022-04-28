@@ -18,11 +18,18 @@ defmodule Auction do
   def insert_user(params), do: %User{} |> User.changeset_with_password(params) |> Repo.insert()
 
   def fetch_user_by_username_and_password(username, password) do
-    with user when not is_nil(user) <- Repo.get_by(User, username: username),
-         true <- Password.verify_with_hash(password, user.hashed_password) do
-      {:ok, user}
-    else
-      _ -> Password.dummy_verify()
+    user = Repo.get_by(User, username: username)
+
+    cond do
+      user && Password.verify_with_hash(password, user.password_hash) ->
+        {:ok, user}
+
+      user ->
+        {:error, :unauthorized}
+
+      true ->
+        Pbkdf2.no_user_verify()
+        {:error, :not_found}
     end
   end
 end
