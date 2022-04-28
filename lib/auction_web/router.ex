@@ -11,12 +11,13 @@ defmodule AuctionWeb.Router do
     plug AuctionWeb.SetCurrentUser
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  pipeline :authenticated_browser do
+    plug :browser
+    plug AuctionWeb.AuthenticateUser
   end
 
   scope "/", AuctionWeb do
-    pipe_through :browser
+    pipe_through :authenticated_browser
 
     get "/", PageController, :index
 
@@ -24,8 +25,13 @@ defmodule AuctionWeb.Router do
 
     resources "/users", UserController, only: [:show, :new, :create]
 
+    delete "/logout", SessionController, :delete
+  end
+
+  scope "/", AuctionWeb do
+    pipe_through :browser
+
     get "/login", SessionController, :new
     post "/login", SessionController, :create
-    delete "/logout", SessionController, :delete
   end
 end
