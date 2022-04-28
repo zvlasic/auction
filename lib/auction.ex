@@ -21,7 +21,7 @@ defmodule Auction do
     user = Repo.get_by(User, username: username)
 
     cond do
-      user && Password.verify_with_hash(password, user.password_hash) ->
+      user && Password.verify_with_hash(password, user.hashed_password) ->
         {:ok, user}
 
       user ->
