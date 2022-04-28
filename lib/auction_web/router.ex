@@ -8,7 +8,7 @@ defmodule AuctionWeb.Router do
     plug :put_root_layout, {AuctionWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug AuctionWeb.Authenticator
+    plug AuctionWeb.SetCurrentUser
   end
 
   pipeline :api do

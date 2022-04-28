@@ -1,4 +1,4 @@
-defmodule AuctionWeb.Authenticator do
+defmodule AuctionWeb.SetCurrentUser do
   import Plug.Conn
 
   def init(opts), do: opts
