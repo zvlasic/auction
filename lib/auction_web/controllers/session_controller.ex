@@ -22,6 +22,6 @@ defmodule AuctionWeb.SessionController do
     conn
     |> clear_session()
     |> configure_session(drop: true)
-    |> redirect(to: Routes.item_path(conn, :index))
+    |> redirect(to: Routes.session_path(conn, :new))
   end
 end
