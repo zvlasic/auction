@@ -1,7 +1,11 @@
 defmodule AuctionWeb.SessionController do
   use AuctionWeb, :controller
 
-  def new(conn, _params), do: render(conn, "new.html")
+  def new(conn, _params) do
+    if conn.assigns.current_user,
+      do: redirect(conn, to: Routes.user_path(conn, :show, conn.assigns.current_user)),
+      else: render(conn, "new.html")
+  end
 
   def create(conn, %{"user" => %{"username" => username, "password" => password}}) do
     case Auction.fetch_user_by_username_and_password(username, password) do

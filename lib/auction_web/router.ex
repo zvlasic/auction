@@ -17,21 +17,22 @@ defmodule AuctionWeb.Router do
   end
 
   scope "/", AuctionWeb do
-    pipe_through :authenticated_browser
+    pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", SessionController, :new
 
-    resources "/items", ItemController, only: [:index, :show, :new, :create, :edit, :update]
+    post "/", SessionController, :create
 
-    resources "/users", UserController, only: [:show, :new, :create]
-
-    delete "/logout", SessionController, :delete
+    resources "/users", UserController, only: [:new, :create]
   end
 
   scope "/", AuctionWeb do
-    pipe_through :browser
+    pipe_through :authenticated_browser
 
-    get "/login", SessionController, :new
-    post "/login", SessionController, :create
+    resources "/items", ItemController, only: [:index, :show, :new, :create, :edit, :update]
+
+    resources "/users", UserController, only: [:show]
+
+    delete "/logout", SessionController, :delete
   end
 end

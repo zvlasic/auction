@@ -2,11 +2,13 @@ defmodule AuctionWeb.UserController do
   use AuctionWeb, :controller
 
   def show(conn, %{"id" => id}) do
+    IO.inspect("in SHOW")
     user = Auction.get_user(id)
     render(conn, "show.html", user: user)
   end
 
   def new(conn, _params) do
+    IO.inspect("in new")
     user = Auction.new_user()
     render(conn, "new.html", user: user)
   end
