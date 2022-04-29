@@ -12,6 +12,7 @@ defmodule AuctionWeb.SessionController do
       {:ok, user} ->
         conn
         |> put_session(:user_id, user.id)
+        |> configure_session(renew: true)
         |> put_flash(:info, "Successfully logged in")
         |> redirect(to: Routes.user_path(conn, :show, user))
 
